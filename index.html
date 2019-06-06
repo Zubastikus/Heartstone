@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body style="background-image: url(images/bg.jpg); background-size: 100%">
+<h1 style="color: white; margin-left: 670px;">Hero hp: <span class="enemy-h-hp">30</span></h1>
+<div style="display: flex;">
+	<h1 style="color: white; margin-left: 550px;">hp all: <span class="hp_enemy">0</span></h1>
+	<h1 style="color: white; margin-left: 200px;">dmg all: <span class="dmg_enemy">0</span></h1>
+</div>
+<div style="background-color: ; height: 150px; width: 800px; margin-top: 70px; margin-left: 350px;" class="enemy">
+	
+</div>
+<button class="cast" style="background-color: yellow; height: 50px; width: 100px; border-radius: 10px; position: absolute; margin-left: 1165px; margin-top: -22px;">Каст карт</button>
+<div style="background-color: ; height: 150px; width: 800px; margin-top: 10px; margin-left: 350px;" class="me">
+	
+</div>
+<div style="display: flex; margin-top: 90px;">
+	<h1 style="color: white; margin-left: 550px;">hp all: <span class="hp_me">0</span></h1>
+	<h1 style="color: white; margin-left: 200px;">dmg all: <span class="dmg_me">0</span></h1>
+</div>
+<h1 style="color: white; margin-left: 670px; margin-top: 0px;">Hero hp: <span class="me-h-hp">30</span></h1>
+<script type="text/javascript">
+let cardss				= []
+let me_p 				= document.querySelector(".me")
+let cast 				= document.querySelector(".cast")
+let enemy_p				= document.querySelector(".enemy")
+let hp_h_enemy			= document.querySelector(".enemy-h-hp")
+let hp_h_me				= document.querySelector(".me-h-hp")
+let getrandom = function(){
+	return Math.round(Math.random()*9)
+}
+let cards = ["images/1.png","images/2.png","images/3.png","images/4.png","images/5.png","images/6.png","images/7.png","images/8.png","images/9.png","images/10.png",]
+let hp = [1,4,4,1,7,5,5,7,4,0];
+let dmg = [1,2,3,4,5,6,7,8,9,0];
+
+let me = {
+	hp: 0,
+	dmg: 0,
+}
+let enemy = {
+	hp: 0,
+	dmg: 0,
+}
+let lel = 0
+let rndm_me = getrandom()+1
+let rndm_enemy = getrandom()+1
+let card = function(){
+	// for (let i = 0; i < getrandom()+1; i++) {
+	// 	let rndm = getrandom()
+	// 	let card = document.createElement('img');
+	// 	document.querySelector(arg).appendChild(card);
+	// 	if ((arg)==".me") {
+	// 		me.hp+=hp[rndm]
+	// 		me.dmg+=dmg[rndm]
+	// 		document.querySelector(".hp_me").innerHTML = me.hp
+	// 		document.querySelector(".dmg_me").innerHTML = me.dmg
+
+	// 	} else {
+	// 		enemy.hp+=hp[rndm]
+	// 		enemy.dmg+=dmg[rndm]
+	// 		document.querySelector(".hp_enemy").innerHTML = enemy.hp
+	// 		document.querySelector(".dmg_enemy").innerHTML = enemy.dmg
+	// 	}
+	// 	card.src = cards[rndm]
+	// 	//bug.style.backgroundColor = "red"
+	// 	card.style.width = "100px"
+	// 	card.style.height = "150px"
+	// 	//card.style.position = "absolute"
+	// }
+	if (lel>0) {
+		for (let i = 0; i < rndm_enemy; i++) {
+			//document.querySelector(".enemy").removeChild(card)
+			cardss[i].remove()
+		}
+		for (let i = 0; i < rndm_me; i++) {
+			//document.querySelector(".me").removeChild(card)
+			cardss[i+rndm_enemy].remove()
+		}
+		enemy.hp = 0
+		enemy.dmg = 0
+		me.hp = 0
+		me.dmg = 0
+	}
+
+	rndm_me = getrandom()+1
+	rndm_enemy = getrandom()+1
+
+	for (let i = 0; i < rndm_enemy; i++) {
+		let rndm = getrandom()
+		let card = document.createElement('img');
+		cardss[i] = card
+		document.querySelector(".enemy").appendChild(card);
+		enemy.hp+=hp[rndm]
+		enemy.dmg+=dmg[rndm]
+		document.querySelector(".hp_enemy").innerHTML = enemy.hp
+		document.querySelector(".dmg_enemy").innerHTML = enemy.dmg
+		card.src = cards[rndm]
+		card.style.width = "100px"
+		card.style.height = "150px"
+		let x = function(){
+			card.remove()
+		}
+		//cast.onclick = function(){card.remove()}
+		//setTimeout(x,2000)
+		
+	}
+	for (let i = 0; i < rndm_me; i++) {
+		let rndm = getrandom()
+		let card = document.createElement('img');
+		cardss[i+rndm_enemy] = card
+		document.querySelector(".me").appendChild(card);
+		me.hp+=hp[rndm]
+		me.dmg+=dmg[rndm]
+		document.querySelector(".hp_me").innerHTML = me.hp
+		document.querySelector(".dmg_me").innerHTML = me.dmg
+		card.src = cards[rndm]
+		card.style.width = "100px"
+		card.style.height = "150px"
+	}
+	if ((enemy.hp > me.hp) && (enemy.dmg > me.dmg)) {
+		hp_h_me.innerHTML -= 1
+	} else if ((me.hp > enemy.hp) && (me.dmg > enemy.dmg)) {
+		hp_h_enemy.innerHTML -= 1
+	} else if (((enemy.hp > me.hp) && (enemy.dmg < me.dmg)) || ((enemy.hp < me.hp) && (enemy.dmg > me.dmg))) {
+		hp_h_enemy.innerHTML -= 1
+		hp_h_me.innerHTML -= 1
+	}
+	lel += 1
+}
+cast.onclick = function(){card()}
+
+
+
+</script>
+</body>
+</html>
